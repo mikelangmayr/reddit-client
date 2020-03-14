@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 
-import CommentSection from './commentSection';
+import CommentSection from '../components/commentSection';
 
 const PaginatedList = (props) => {
 	// deconstruct props
-	const { list: inputList, pageSize = 4 } = props;
+	const { list: inputList = [], pageSize = 4 } = props;
 
 	// define states
 	const [currentPage, setCurrentPage] = useState(inputList.length > 5 ? inputList.slice(0, pageSize): inputList);

@@ -1,9 +1,12 @@
-import { shallow } from 'enzyme'	;
+import { shallow } from 'enzyme';
+import { enableFetchMocks } from 'jest-fetch-mock';
+enableFetchMocks()
 
 import CommentSection from './commentSection';
 
 // mock the fetch function
-window.fetch = jest.fn(() => new Promise(() => {}));
+fetch = jest.fn(() => new Promise(() => {}));
+fetchMock.mockResponse(fetch)
 
 describe('Comment section', () => {
   const component = shallow(<CommentSection articleId="test-article-id" />);
@@ -11,6 +14,6 @@ describe('Comment section', () => {
 	it('clicks the show comments button', () => {
 		component.find('button').simulate('click');
 		// check if article id was passed in
-		expect(window.fetch).toHaveBeenCalledWith('https://www.reddit.com/comments/test-article-id.json');
+		expect(fetch).toHaveBeenCalledWith('https://www.reddit.com/comments/test-article-id.json');
 	})
 });

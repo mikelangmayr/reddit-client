@@ -26,9 +26,9 @@ const Home = () => {
 
       <div>Reddit client: Please choose a Reddit feed</div>
 
-      <button className="btn btn-info button" onClick={async () => {await fetchRedditFeed('http://www.reddit.com/r/all/hot.json')}}>Fetch hot feed</button>
-      <button className="btn btn-success button" onClick={async () => {await fetchRedditFeed('http://www.reddit.com/r/all/new.json')}}>Fetch new feed</button>
-      <button className="btn btn-warning button" onClick={async () => {await fetchRedditFeed('http://www.reddit.com/r/all/top.json')}}>Fetch top feed</button>
+      <button className="btn btn-info button" onClick={async () => {await fetchRedditFeed('https://www.reddit.com/r/all/hot.json')}}>Fetch hot feed</button>
+      <button className="btn btn-success button" onClick={async () => {await fetchRedditFeed('https://www.reddit.com/r/all/new.json')}}>Fetch new feed</button>
+      <button className="btn btn-warning button" onClick={async () => {await fetchRedditFeed('https://www.reddit.com/r/all/top.json')}}>Fetch top feed</button>
       <PaginatedList list={redditFeed} />
       
       <style jsx>{`
