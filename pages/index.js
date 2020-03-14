@@ -10,7 +10,6 @@ const Home = () => {
     try {
       const redditFeedResponse = await fetch(redditUrl);
       const redditFeed = await redditFeedResponse.json();
-      console.log('child: ', redditFeed.data.children[0])
       
       setRedditFeed(redditFeed.data.children);
     } catch(err) {
