@@ -1,10 +1,13 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const CommentSection = ({ articleId }) => {
 	const [comments, setComments] = useState([]);
 	const [showComments, setShowComments] = useState(false);
 	// use this state to show a loader while the comments are fetching
 	const [showLoader, setShowLoader] = useState(false);
+
+	// set effect if article id changes
+	useEffect(() => hideComments(), [articleId]);
 
 	const hideComments = () => {
 		setShowComments(false);
