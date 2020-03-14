@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-import CommentSection from '../components/commentSection';
+import CommentSection from './commentSection';
 
 const PaginatedList = ({ list: inputList = [], pageSize = 4 }) => {
 	// define states
@@ -9,6 +9,32 @@ const PaginatedList = ({ list: inputList = [], pageSize = 4 }) => {
 	
 	// set effect for list change
 	useEffect(() => updateInputList(inputList, setCurrentPage, pageSize), [inputList]);
+
+	const hasNextPage = () => {
+		const maxIndex = parseInt(inputList.length / pageSize) + (inputList.length % pageSize !== 0) - 1;
+		
+		return currentIndex < maxIndex;
+	}
+
+	const updateInputList = () => {
+		setCurrentPage(inputList.length > 5 ? inputList.slice(0, pageSize): inputList);
+	}
+
+	const showNextPage = () => {
+		const newIndex = currentIndex + 1;
+		const newFirstElement = newIndex * pageSize;
+		
+		setCurrentPage(inputList.slice(newFirstElement, Math.min(newFirstElement + pageSize, inputList.length - 1)));
+		setCurrentIndex(newIndex);
+	}
+
+	const showPreviousPage = () => {
+		const newIndex = currentIndex - 1;
+		const newFirstElement = newIndex * pageSize;
+		
+		setCurrentPage(inputList.slice(Math.max(newFirstElement, 0), newFirstElement + pageSize));
+		setCurrentIndex(newIndex);
+	}
 
 	return (
 		<>
@@ -30,7 +56,7 @@ const PaginatedList = ({ list: inputList = [], pageSize = 4 }) => {
           <li className="page-item active">
             <a className="page-link" href="#">{currentIndex} <span className="sr-only">(current)</span></a>
           </li>
-          <li className={`page-item ${hasNextPage(inputList.length, currentIndex, pageSize) || "disabled"}`}>
+          <li className={`page-item ${hasNextPage() || "disabled"}`}>
             <a className="page-link" href="#" onClick={() => showNextPage({inputList, setCurrentPage, setCurrentIndex, currentIndex, pageSize})}>Next</a>
           </li>
         </ul>
@@ -57,32 +83,6 @@ const PaginatedList = ({ list: inputList = [], pageSize = 4 }) => {
 			`}
 			</style>
 		</>)
-}
-
-function showNextPage({ inputList, setCurrentPage, setCurrentIndex, currentIndex, pageSize }) {
-	const newIndex = currentIndex + 1;
-	const newFirstElement = newIndex * pageSize;
-	
-	setCurrentPage(inputList.slice(newFirstElement, Math.min(newFirstElement + pageSize, inputList.length - 1)));
-	setCurrentIndex(newIndex);
-}
-
-function showPreviousPage({ inputList, setCurrentPage, setCurrentIndex, currentIndex, pageSize }) {
-	const newIndex = currentIndex - 1;
-	const newFirstElement = newIndex * pageSize;
-	
-	setCurrentPage(inputList.slice(Math.max(newFirstElement, 0), newFirstElement + pageSize));
-	setCurrentIndex(newIndex);
-}
-
-function hasNextPage(listLength, currentIndex, pageSize) {
-	const maxIndex = parseInt(listLength / pageSize) + (listLength % pageSize !== 0) - 1;
-	
-	return currentIndex < maxIndex;
-}
-
-function updateInputList(inputList, setCurrentPage, pageSize) {
-	setCurrentPage(inputList.length > 5 ? inputList.slice(0, pageSize): inputList);
 }
 
 // check if string is a url

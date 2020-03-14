@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Head from 'next/head'
 
-import PaginatedList from './paginatedList';
+import PaginatedList from '../components/paginatedList';
 
 const Home = () => {
   const [redditFeed, setRedditFeed] = useState([]);

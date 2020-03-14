@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme';
 import { enableFetchMocks } from 'jest-fetch-mock';
-enableFetchMocks()
+enableFetchMocks();
 
 import CommentSection from './commentSection';
 
