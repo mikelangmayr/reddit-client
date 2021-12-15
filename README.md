@@ -25,7 +25,3 @@ Run existing tests in the terminal:
 ```bash
 npm run dev
 ```
-
-## Caveats
- - few tests
- - comments are only shown to one level deep
